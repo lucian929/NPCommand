@@ -1,0 +1,7 @@
+name: NPCommand
+version: ${project.version}
+main: me.raindropz.mc.npcommand.Npcommand
+api-version: 1.16
+depend: [ Citizens ]
+authors: [ Raindropz ]
+description: Runs commands when an NPC is hit
