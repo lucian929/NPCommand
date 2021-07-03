@@ -12,7 +12,7 @@
 Allows you to execute a command when an NPC is hit with an arrow. Great for making a target practice system
 
 ### Installation
-Similar to my [Other Plugin](https://github.com/lucian929/Hypixel-Skyblock-GrapplingHook-Source), you just need to download the source and run "mvn clean install" in the folder with the pom.xml.
+Similar to my [other plugin](https://github.com/lucian929/Hypixel-Skyblock-GrapplingHook-Source), you just need to download the source and run "mvn clean install" in the folder with the pom.xml.
 
 
 ### Contact-Information
