@@ -10,6 +10,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamageListener implements Listener {
+
+    private final Npcommand plugin;
+    public EntityDamageListener(Npcommand plugin) {
+        this.plugin = plugin;
+    }
     @EventHandler
     public void EntityDamageByEntity(EntityDamageByEntityEvent event) {
         Entity entity = event.getEntity();
@@ -18,7 +23,7 @@ public class EntityDamageListener implements Listener {
         if (event.getDamager() instanceof Arrow && event.getEntity() instanceof Player && isCitizensNPC) {
             // my code here
             ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-            String command = "say Command Executed.";
+            String command = plugin.getConfig().getString("commandOnHit");
             Bukkit.dispatchCommand(console, command);
         }
     }
