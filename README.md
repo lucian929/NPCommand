@@ -16,6 +16,5 @@ Similar to my [other plugin](https://github.com/lucian929/Hypixel-Skyblock-Grapp
 
 
 ### Contact-Information
-[Github Profile](https://github.com/lucian929)
-lucian@hibiscusmc.com
+Discord: Raindropz#0766
 
