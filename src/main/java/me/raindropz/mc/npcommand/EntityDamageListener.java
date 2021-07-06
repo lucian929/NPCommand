@@ -4,6 +4,7 @@ import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -20,14 +21,25 @@ public class EntityDamageListener implements Listener {
         Entity entity = event.getNPC().getEntity();
         boolean isCitizensNPC = entity.hasMetadata("NPC");
         NPC npc = event.getNPC();
-        String command = plugin.getConfig().getString("NPCs" + npc + ".command");
 
-        if (event.getDamager() instanceof Arrow && isCitizensNPC && npc.getId().equals(plugin.getConfig().getConfigurationSection("NPCs.id"))) {
-            System.out.println("NPC ID: " + npc.getId());
-            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-            Bukkit.dispatchCommand(console, command);
-        }
+        ConfigurationSection path = plugin.getConfig().getConfigurationSection("NPCs");
+
         if (!(event.getDamager() instanceof Arrow && isCitizensNPC)) return;
+
+        if (event.getDamager() instanceof Arrow && isCitizensNPC) {
+
+            for (String npcs : path.getKeys(false)) {
+                int npcID = plugin.getConfig().getInt("NPCs." + npcs + ".id");
+
+
+                if (npc.getId() == npcID) {
+                    String command = plugin.getConfig().getString("NPCs." + npcs + ".command");
+
+                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+                    Bukkit.dispatchCommand(console, command);
+                }
+            }
+        }
     }
 }
 /*public class EntityDamageListener implements Listener {
