@@ -18,3 +18,6 @@ Similar to my [other plugin](https://github.com/lucian929/Hypixel-Skyblock-Grapp
 ### Contact-Information
 Discord: Raindropz#0766
 
+## Special Thanks
+Thanks to [Preware](https://github.com/Preware) for help with the config file.
+
