@@ -12,3 +12,13 @@ version: 1.0-SNAPSHOT
 
 commandOnHit: "say Command Executed."
 
+NPCs:
+  npc1: # You can use any name here.
+    id: 1 # Use the ID of the citizen (/npc select to get it)
+    command: "say Hello World! (NPC 1)" # Command you want to execute with NO "/"!
+  npc2:
+    id: 2
+    command: "say Hello World! (NPC 2)"
+  npc3:
+    id: 3
+    command: "say Hello World! (NPC 3)"
