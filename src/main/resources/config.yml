@@ -12,6 +12,11 @@ version: 1.0-SNAPSHOT
 
 commandOnHit: "say Command Executed."
 
+# Firework Settings
+flicker: false
+# Firework color: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Color.html (This feature is not implemented yet.)
+# firework-color: "YELLOW"
+
 NPCs:
   npc1: # You can use any name here.
     id: 1 # Use the ID of the citizen (/npc select to get it)
@@ -22,3 +27,12 @@ NPCs:
   npc3:
     id: 3
     command: "say Hello World! (NPC 3)"
+  npc4:
+    id: 4
+    command: "say Hello World! (NPC 4)"
+  npc5:
+    id: 5
+    command: "say Hello World! (NPC 5)"
+  npc6:
+    id: 6
+    command: "give %player_name% diamond_block 1"

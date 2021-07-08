@@ -1,14 +1,17 @@
 package me.raindropz.mc.npcommand;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
 import net.citizensnpcs.api.npc.NPC;
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.meta.FireworkMeta;
+
+import java.util.Collections;
 
 public class EntityDamageListener implements Listener {
 
@@ -26,17 +29,27 @@ public class EntityDamageListener implements Listener {
 
         if (!(event.getDamager() instanceof Arrow && isCitizensNPC)) return;
 
-        if (event.getDamager() instanceof Arrow && isCitizensNPC) {
+        if (event.getDamager() instanceof Arrow) {
 
             for (String npcs : path.getKeys(false)) {
                 int npcID = plugin.getConfig().getInt("NPCs." + npcs + ".id");
 
-
                 if (npc.getId() == npcID) {
                     String command = plugin.getConfig().getString("NPCs." + npcs + ".command");
+                    String fireworkColor = plugin.getConfig().getString("firework-color");
+                    Location npcLoc = npc.getEntity().getLocation();
+
+                    Firework firework = (Firework) npcLoc.getWorld().spawnEntity(npcLoc, EntityType.FIREWORK);
+                    FireworkMeta fireworkMeta = firework.getFireworkMeta();
+
+                    fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.YELLOW).flicker(plugin.getConfig().getBoolean("flicker")).build());
+                    firework.setFireworkMeta(fireworkMeta);
 
                     ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
                     Bukkit.dispatchCommand(console, command);
+
+                    event.getDamager().remove();
+
                 }
             }
         }
