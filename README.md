@@ -14,6 +14,10 @@ Allows you to execute a command when an NPC is hit with an arrow. Great for maki
 ### Installation
 Similar to my [other plugin](https://github.com/lucian929/Hypixel-Skyblock-GrapplingHook-Source), you just need to download the source and run "mvn clean install" in the folder with the pom.xml.
 
+## To-do
+- Add PlaceholderAPI Support.
+- Allow firework color to be configurable in config.yml
+- Make it so that commands can have a random chance to be fired.
 
 ### Contact Information
 Discord: Raindropz#0766
