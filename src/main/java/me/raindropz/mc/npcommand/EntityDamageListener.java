@@ -31,11 +31,13 @@ public class EntityDamageListener implements Listener {
 
         if (event.getDamager() instanceof Arrow) {
 
+            Arrow arrow = (Arrow) event.getDamager();
+
             for (String npcs : path.getKeys(false)) {
                 int npcID = plugin.getConfig().getInt("NPCs." + npcs + ".id");
 
                 if (npc.getId() == npcID) {
-                    String command = plugin.getConfig().getString("NPCs." + npcs + ".command");
+                    String command = PlaceholderAPI.setPlaceholders(((Player) arrow.getShooter()).getPlayer(), plugin.getConfig().getString("NPCs." + npcs + ".command"));
                     String fireworkColor = plugin.getConfig().getString("firework-color");
                     Location npcLoc = npc.getEntity().getLocation();
 
