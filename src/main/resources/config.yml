@@ -15,7 +15,10 @@ commandOnHit: "say Command Executed."
 # Firework Settings
 flicker: false
 # Firework color: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Color.html (This feature is not implemented yet.)
-# firework-color: "YELLOW"
+firework-color:
+  RED: 255
+  GREEN: 0
+  BLUE: 0
 
 NPCs:
   npc1: # You can use any name here.

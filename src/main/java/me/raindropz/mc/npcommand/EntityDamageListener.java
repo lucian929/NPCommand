@@ -38,13 +38,18 @@ public class EntityDamageListener implements Listener {
 
                 if (npc.getId() == npcID) {
                     String command = PlaceholderAPI.setPlaceholders(((Player) arrow.getShooter()).getPlayer(), plugin.getConfig().getString("NPCs." + npcs + ".command"));
-                    String fireworkColor = plugin.getConfig().getString("firework-color");
                     Location npcLoc = npc.getEntity().getLocation();
 
                     Firework firework = (Firework) npcLoc.getWorld().spawnEntity(npcLoc, EntityType.FIREWORK);
                     FireworkMeta fireworkMeta = firework.getFireworkMeta();
+                    FireworkEffect.Builder fireworkEffect = FireworkEffect.builder();
 
-                    fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.YELLOW).flicker(plugin.getConfig().getBoolean("flicker")).build());
+                    boolean flicker = plugin.getConfig().getBoolean("flicker");
+                    int redColor = plugin.getConfig().getInt("firework-color.RED");
+                    int greenColor = plugin.getConfig().getInt("firework-color.GREEN");
+                    int blueColor = plugin.getConfig().getInt("firework-color.BLUE");
+
+                    fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.fromRGB(redColor, greenColor, blueColor)).flicker(flicker).build());
                     firework.setFireworkMeta(fireworkMeta);
 
                     ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
