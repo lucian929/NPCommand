@@ -1,6 +1,6 @@
 name: NPCommand
 version: ${project.version}
-main: me.raindropz.mc.npcommand.Npcommand
+main: me.raindropz.mc.NPCommand
 api-version: 1.16
 depend: [ Citizens ]
 softdepend: [ PlaceholderAPI ]
