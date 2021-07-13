@@ -1,6 +1,7 @@
-package me.raindropz.mc.npcommand;
+package me.raindropz.mc.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.raindropz.mc.npcommand.Npcommand;
 import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.*;
@@ -10,8 +11,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.meta.FireworkMeta;
-
-import java.util.Collections;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 public class EntityDamageListener implements Listener {
 
@@ -39,6 +40,20 @@ public class EntityDamageListener implements Listener {
                 if (npc.getId() == npcID) {
                     String command = PlaceholderAPI.setPlaceholders(((Player) arrow.getShooter()).getPlayer(), plugin.getConfig().getString("NPCs." + npcs + ".command"));
                     Location npcLoc = npc.getEntity().getLocation();
+                    Player p = (Player) arrow.getShooter();
+                    PersistentDataContainer npcHitCount = ((Player) arrow.getShooter()).getPersistentDataContainer();
+
+                    /*
+                    Npc hit counting handling (For PlaceholderAPI Support)
+                     */
+
+                    int hitCount = ((Player) arrow.getShooter()).getPersistentDataContainer().get(new NamespacedKey(plugin, "npc-hit"), PersistentDataType.INTEGER);
+                    hitCount++;
+                    npcHitCount.set(new NamespacedKey(plugin, "npc-hit"), PersistentDataType.INTEGER, hitCount);
+
+                    /*
+                    Firework and Arrow handling
+                     */
 
                     Firework firework = (Firework) npcLoc.getWorld().spawnEntity(npcLoc, EntityType.FIREWORK);
                     FireworkMeta fireworkMeta = firework.getFireworkMeta();
@@ -55,19 +70,10 @@ public class EntityDamageListener implements Listener {
                     ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
                     Bukkit.dispatchCommand(console, command);
 
-                    event.getDamager().remove();
+                    arrow.remove();
 
                 }
             }
         }
     }
 }
-/*public class EntityDamageListener implements Listener {
-    @EventHandler
-    public void entityDamageByEntity(EntityDamageByEntityEvent event) { // Changed method name to lowerCamelCase
-        Entity entity = event.getEntity();
-        if (!(event.getDamager() instanceof Arrow && entity instanceof Player && entity.hasMetadata("NPC"))) return;
-        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "say Command Executed.");
-    }
-}
- */
